@@ -102,7 +102,12 @@ class Admin(commands.Cog):
         if image_file:
             embed.set_thumbnail(url="attachment://thumbnail.jpg")
         utils.reset_singleton(MusicManager)
-        await action.response.send_message(embed=embed, file=image_file)
+
+        if image_file:
+            await action.response.send_message(embed=embed, file=image_file)
+        else:
+            await action.response.send_message(embed=embed)
+
 
     @app_commands.command(description='DJMAX RESPECT V의 수록곡을 삭제합니다.')
     @app_commands.describe(title="곡명", dlc="DLC")
@@ -161,7 +166,7 @@ class Admin(commands.Cog):
                     insert += 1
 
             session.commit()
-            await action.response.send_message(f"✅ {music.music_name} ({music.music_dlc})에 대한 세부 난이도가 추가되었습니다.\n> 추가 ({insert}) / 수정 ({update}")
+            await action.response.send_message(f"✅ {music.music_name} ({music.music_dlc})에 대한 세부 난이도가 추가되었습니다.\n> 추가 ({insert}) / 수정 ({update})")
 
 
 async def setup(bot):
